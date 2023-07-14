@@ -1,0 +1,149 @@
+<!--
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">   
+    <title>Data Table</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Data Table</h1>
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Device</th>
+          <th>MacID</th>
+          <th>Temperature</th>
+          <th>Humidity</th>
+          <th>Times</th>
+          <th>Date</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <script>
+      fetch('http://localhost:9010/alldata')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.querySelector('#data-table tbody');
+          data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${row.id}</td>
+              <td>${row.device}</td>
+              <td>${row.node_id}</td>
+              <td>${row.temp}</td>
+              <td>${row.humi}</td>
+              <td>${row.time}</td>
+              <td>${row.date}</td>
+            `;
+            tableBody.appendChild(tr);
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html>
+
+
+-->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Data Table</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+        cursor: pointer;
+        user-select: none;
+      }
+      .sorting, .sorting_asc, .sorting_desc {
+        background-image: url('https://cdn.datatables.net/1.10.25/images/sort_both.png');
+        background-repeat: no-repeat;
+        background-position: center right;
+        white-space: nowrap;
+      }
+      .sorting_asc::after {
+        content: '▲';
+      }
+      .sorting_desc::after {
+        content: '▼';
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Data Table</h1>
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Temperature</th>
+          <th>Humidity</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+      fetch('http://172.29.0.207:9010/alldata')
+        .then(response => response.json())
+        .then(data => {
+          const table = $('#data-table').DataTable({
+            data: data,
+            columns: [
+              { data: 'id' },
+              { data: 'temp' },
+              { data: 'humi' },
+              { data: 'time },
+            ],
+            order: [[0, 'asc']],
+          });
+          $('th').click(function() {
+            const index = $(this).index();
+            const order = table.order()[0][1] === 'asc' ? 'desc' : 'asc';
+            table.order([index, order]).draw();
+            $('th').removeClass('sorting sorting_asc sorting_desc');
+            $(this).addClass(`sorting_${order}`);
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html>
+
+
+
+
+

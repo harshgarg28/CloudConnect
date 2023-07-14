@@ -1,0 +1,4 @@
+{'temp': 27, 'humi': 44, 'node_id': 'fc:69:47:c:2b:63', 'device': 'WiFiMote', 'date': '2023-04-14', 'time': '01:09:48'}
+{'temp': 27, 'humi': 44, 'node_id': 'fc:69:47:c:2b:63', 'device': 'WiFiMote', 'date': '2023-04-14', 'time': '01:09:57'}
+{'temp': 27, 'humi': 44, 'node_id': 'fc:69:47:c:2b:63', 'device': 'WiFiMote', 'date': '2023-04-14', 'time': '01:10:05'}
+{'temp': 27, 'humi': 44, 'node_id': 'fc:69:47:c:2b:63', 'device': 'WiFiMote', 'date': '2023-04-14', 'time': '01:10:13'}
